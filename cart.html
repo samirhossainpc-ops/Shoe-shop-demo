@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Bag & Checkout — LORENZIO</title>
+<link rel="icon" type="image/png" href="logo-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F4EE; --surface:#FCFAF7; --secondary:#E7DCCB; --accent:#8A6A4A;
+  --accent-d:#725639; --text:#2B2B2B; --dark:#23201D; --success:#6E8B63;
+  --error:#B65B5B; --border:#DDD5C8;
+  --display:'Cormorant Garamond',serif; --body:'Manrope',sans-serif;
+  --nh:76px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button,input,textarea{font-family:var(--body);cursor:pointer;border:none;background:none}
+h1,h2,h3{font-family:var(--display);font-weight:500;letter-spacing:-.01em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.navbar{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:var(--nh);background:rgba(252,250,247,.94);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--border)}
+.nav-logo img{height:36px;width:auto}
+.nav-back{display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;color:var(--dark);padding:9px 18px;border:1.5px solid var(--border);border-radius:2px;transition:all .2s}
+.nav-back:hover{border-color:var(--dark)}
+
+.page{max-width:1160px;margin:0 auto;padding:40px 32px 100px}
+@media(max-width:700px){.page{padding:24px 20px 80px}}
+.page-eyebrow{font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:10px}
+.page-title{font-size:clamp(1.8rem,4vw,2.5rem);color:var(--dark);margin-bottom:36px}
+
+/* STEPS */
+.steps{display:flex;align-items:center;margin-bottom:40px}
+.step{display:flex;align-items:center;gap:10px;font-size:.82rem;font-weight:600;color:#bbb}
+.step.on{color:var(--dark)}
+.step-dot{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0}
+.step.on .step-dot{border-color:var(--dark);background:var(--dark);color:#fff}
+.step-line{flex:1;height:1px;background:var(--border);margin:0 16px;min-width:20px}
+
+@media(min-width:860px){.layout{display:grid;grid-template-columns:1fr 400px;gap:56px;align-items:flex-start}}
+
+/* CART ITEMS */
+.cart-panel{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:28px;margin-bottom:20px}
+.panel-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dark);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.cart-item{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--border)}
+.cart-item:last-child{border-bottom:none;padding-bottom:0}
+.cart-item:first-child{padding-top:0}
+.ci-img{width:92px;height:112px;object-fit:cover;border-radius:4px;background:var(--secondary);flex-shrink:0}
+.ci-body{flex:1;min-width:0}
+.ci-name{font-family:var(--display);font-size:1.2rem;color:var(--dark);margin-bottom:4px}
+.ci-meta{font-size:.8rem;color:var(--text);opacity:.6;margin-bottom:14px}
+.ci-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.qty-ctrl{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:3px}
+.qty-btn{width:32px;height:34px;font-size:1rem;color:var(--dark)}
+.qty-btn:hover{background:var(--secondary)}
+.qty-num{width:32px;text-align:center;font-size:.85rem;font-weight:700;border-left:1.5px solid var(--border);border-right:1.5px solid var(--border);height:34px;display:flex;align-items:center;justify-content:center}
+.ci-price{font-weight:700;color:var(--dark);font-size:1rem}
+.ci-remove{color:var(--error);font-size:.76rem;font-weight:600;padding:6px}
+
+.empty-cart{text-align:center;padding:80px 24px}
+.empty-ic{font-size:2.2rem;margin-bottom:16px;opacity:.4}
+.empty-cart h2{font-size:1.4rem;color:var(--dark);margin-bottom:10px}
+.empty-cart p{color:var(--text);opacity:.6;margin-bottom:28px;font-size:.92rem}
+.btn-shop{display:inline-flex;padding:15px 34px;background:var(--dark);color:#fff;border-radius:2px;font-weight:600;font-size:.88rem;letter-spacing:.03em;transition:background .3s}
+.btn-shop:hover{background:var(--accent-d)}
+
+/* FORM */
+.form-row{margin-bottom:16px}
+.form-row label{display:block;font-size:.74rem;font-weight:700;color:var(--text);opacity:.7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.form-row.req label::after{content:' *';color:var(--accent)}
+.finput{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:3px;font-size:.9rem;background:var(--bg);color:var(--dark);outline:none;transition:border-color .2s}
+.finput:focus{border-color:var(--accent)}
+.finput.err{border-color:var(--error)}
+textarea.finput{resize:vertical;min-height:84px}
+.field-err{font-size:.76rem;color:var(--error);margin-top:6px;display:none}
+.field-err.show{display:block}
+.form-2col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:480px){.form-2col{grid-template-columns:1fr}}
+
+.pay-opt{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1.5px solid var(--accent);border-radius:4px;background:var(--secondary)}
+.pay-opt input{accent-color:var(--accent);width:17px;height:17px}
+.pay-opt-title{font-weight:700;font-size:.9rem;color:var(--dark)}
+.pay-opt-sub{font-size:.78rem;color:var(--text);opacity:.65}
+
+.whatsapp-note{display:flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:14px 16px;margin-top:16px;font-size:.82rem;color:var(--text)}
+.whatsapp-note a{color:var(--success);font-weight:700}
+
+/* SUMMARY */
+.summary-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:28px;position:sticky;top:calc(var(--nh) + 20px)}
+.sum-row{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:14px;color:var(--text)}
+.sum-row.total{border-top:1px solid var(--border);padding-top:16px;margin-top:6px;font-size:1.05rem;font-weight:700;color:var(--dark)}
+.free-note{font-size:.76rem;color:var(--accent);margin:-6px 0 14px;font-weight:600}
+.btn-place{width:100%;padding:17px;background:var(--dark);color:#fff;border-radius:3px;font-weight:600;font-size:.92rem;letter-spacing:.03em;margin-top:8px;transition:background .3s,transform .15s}
+.btn-place:hover:not(:disabled){background:var(--accent-d)}
+.btn-place:active{transform:scale(.98)}
+.btn-place:disabled{background:#ccc;cursor:not-allowed}
+.secure-note{text-align:center;font-size:.76rem;color:var(--text);opacity:.55;margin-top:12px}
+
+/* SUCCESS */
+.success-wrap{display:none;max-width:520px;margin:60px auto;text-align:center;padding:0 20px}
+.success-wrap.show{display:block}
+.suc-icon{width:76px;height:76px;border-radius:50%;background:var(--secondary);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;animation:pop .5s cubic-bezier(.36,.07,.19,.97)}
+@keyframes pop{0%{transform:scale(0)}60%{transform:scale(1.1)}100%{transform:scale(1)}}
+.suc-title{font-size:2rem;color:var(--dark);margin-bottom:12px}
+.suc-sub{font-size:.92rem;color:var(--text);opacity:.7;margin-bottom:28px;line-height:1.7}
+.suc-id-box{background:var(--surface);border:1.5px dashed var(--border);border-radius:6px;padding:20px;margin-bottom:28px}
+.suc-id-lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text);opacity:.6;margin-bottom:8px}
+.suc-id-val{font-family:var(--display);font-size:1.5rem;color:var(--accent);font-weight:600;margin-bottom:10px}
+.suc-copy{padding:8px 18px;background:var(--secondary);border-radius:20px;font-size:.76rem;font-weight:600;color:var(--dark)}
+.suc-next{text-align:left;background:var(--surface);border-radius:6px;padding:20px;margin-bottom:26px}
+.suc-next-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text);opacity:.6;margin-bottom:14px}
+.suc-step{display:flex;gap:12px;margin-bottom:12px;font-size:.86rem}
+.suc-step-dot{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.suc-step strong{display:block;color:var(--dark)}
+.suc-step span{color:var(--text);opacity:.65}
+.btn-track{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:17px;background:var(--dark);color:#fff;border-radius:3px;font-weight:600;font-size:.9rem;margin-bottom:12px;transition:background .3s}
+.btn-track:hover{background:var(--accent-d)}
+.btn-cont{display:block;width:100%;padding:15px;border:1.5px solid var(--border);border-radius:3px;color:var(--dark);font-weight:600;font-size:.86rem;transition:border-color .2s}
+.btn-cont:hover{border-color:var(--dark)}
+
+.footer{background:var(--dark);color:rgba(255,255,255,.6);padding:36px 32px;text-align:center;font-size:.8rem}
+
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--dark);color:#fff;padding:13px 26px;border-radius:2px;font-size:.85rem;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><img src="logo-full.png" alt="LORENZIO"></a>
+  <a href="index.html" class="nav-back">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 19 12 12 19" transform="rotate(180 12 12)"/></svg>
+    Continue Shopping
+  </a>
+</nav>
+
+<!-- SUCCESS SCREEN -->
+<div class="success-wrap" id="successWrap">
+  <div class="suc-icon">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#8A6A4A" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+  </div>
+  <h1 class="suc-title">Order Confirmed</h1>
+  <p class="suc-sub">Thank you for choosing LORENZIO. Your order will be delivered via Cash on Delivery. Keep your Order ID to track your shipment.</p>
+  <div class="suc-id-box">
+    <div class="suc-id-lbl">Your Order ID</div>
+    <div class="suc-id-val" id="successId">—</div>
+    <button class="suc-copy" onclick="copyOrderId()">Copy Order ID</button>
+  </div>
+  <div class="suc-next">
+    <div class="suc-next-title">What Happens Next</div>
+    <div class="suc-step"><div class="suc-step-dot">1</div><div><strong>Confirmed</strong><span>We've received your order and it's being prepared</span></div></div>
+    <div class="suc-step"><div class="suc-step-dot">2</div><div><strong>Packed & Shipped</strong><span>Handed to our delivery partner with care</span></div></div>
+    <div class="suc-step"><div class="suc-step-dot">3</div><div><strong>Delivered & Pay</strong><span>Receive your order and pay by cash</span></div></div>
+  </div>
+  <a href="track.html" id="trackBtn" class="btn-track">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    Track Your Order
+  </a>
+  <a href="index.html" class="btn-cont">Continue Shopping</a>
+</div>
+
+<div class="page" id="cartPage">
+  <div class="empty-cart" id="emptyCart" style="display:none">
+    <div class="empty-ic">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    </div>
+    <h2>Your bag is empty</h2>
+    <p>Discover a pair that fits your everyday elegance.</p>
+    <a href="index.html#shop" class="btn-shop">Browse Collection</a>
+  </div>
+
+  <div id="cartContent" style="display:none">
+    <p class="page-eyebrow">Checkout</p>
+    <h1 class="page-title">Your Bag</h1>
+
+    <div class="steps">
+      <div class="step on"><div class="step-dot">1</div><span>Bag</span></div>
+      <div class="step-line"></div>
+      <div class="step on"><div class="step-dot">2</div><span>Details</span></div>
+      <div class="step-line"></div>
+      <div class="step"><div class="step-dot">3</div><span>Confirm</span></div>
+    </div>
+
+    <div class="layout">
+      <div>
+        <!-- ITEMS -->
+        <div class="cart-panel">
+          <div class="panel-title">Your Items (<span id="itemCount">0</span>)</div>
+          <div id="cartItems"></div>
+        </div>
+
+        <!-- DELIVERY FORM -->
+        <div class="cart-panel">
+          <div class="panel-title">Delivery Details</div>
+          <div class="form-row req"><label>Full Name</label>
+            <input class="finput" id="fName" type="text" placeholder="Your full name" autocomplete="name">
+            <p class="field-err" id="errName">Please enter your name</p>
+          </div>
+          <div class="form-row req"><label>Phone Number</label>
+            <input class="finput" id="fPhone" type="tel" placeholder="01XXXXXXXXX" autocomplete="tel">
+            <p class="field-err" id="errPhone">Enter a valid Bangladeshi number</p>
+          </div>
+          <div class="form-row req"><label>Full Address</label>
+            <textarea class="finput" id="fAddress" placeholder="House, road, area, thana…" autocomplete="street-address"></textarea>
+            <p class="field-err" id="errAddress">Please enter your address (min 10 characters)</p>
+          </div>
+          <div class="form-2col">
+            <div class="form-row req"><label>District / City</label>
+              <input class="finput" id="fCity" type="text" placeholder="e.g. Dhaka" autocomplete="address-level2">
+              <p class="field-err" id="errCity">Please enter your city</p>
+            </div>
+            <div class="form-row"><label>Notes (optional)</label>
+              <input class="finput" id="fNotes" type="text" placeholder="Delivery instructions…">
+            </div>
+          </div>
+        </div>
+
+        <!-- PAYMENT -->
+        <div class="cart-panel">
+          <div class="panel-title">Payment Method</div>
+          <label class="pay-opt">
+            <input type="radio" name="payment" checked>
+            <div><div class="pay-opt-title">Cash on Delivery</div><div class="pay-opt-sub">Pay comfortably at your doorstep</div></div>
+          </label>
+          <div class="whatsapp-note">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E8B63" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span>Prefer to order by chat? <a href="https://wa.me/8801XXXXXXXXX" target="_blank">Message us on WhatsApp</a></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div>
+        <div class="summary-card">
+          <div class="panel-title">Order Summary</div>
+          <div class="sum-row"><span>Subtotal</span><span id="sumSubtotal">৳0</span></div>
+          <div class="sum-row"><span>Delivery</span><span id="sumDelivery">৳120</span></div>
+          <p class="free-note" id="freeNote"></p>
+          <div class="sum-row total"><span>Total</span><span id="sumTotal">৳0</span></div>
+          <button class="btn-place" id="placeBtn" onclick="placeOrder()">Place Order</button>
+          <p class="secure-note">Secure checkout · No account required</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">© 2025 LORENZIO. Crafted with quiet confidence in Bangladesh.</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DELIVERY_FEE=120, FREE_MIN=12000;
+let lastOrderId='';
+
+const gc=()=>{try{return JSON.parse(localStorage.getItem('lorenzio_cart')||'[]')}catch(e){return[]}};
+const sc=c=>localStorage.setItem('lorenzio_cart',JSON.stringify(c));
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+
+function renderCart(){
+  const cart=gc();
+  if(!cart.length){
+    document.getElementById('emptyCart').style.display='block';
+    document.getElementById('cartContent').style.display='none';
+    return;
+  }
+  document.getElementById('emptyCart').style.display='none';
+  document.getElementById('cartContent').style.display='block';
+
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const del=sub>=FREE_MIN?0:DELIVERY_FEE;
+  const total=sub+del;
+
+  document.getElementById('itemCount').textContent=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('sumSubtotal').textContent='৳'+sub.toLocaleString();
+  document.getElementById('sumDelivery').textContent=del===0?'Free':'৳'+del;
+  document.getElementById('sumTotal').textContent='৳'+total.toLocaleString();
+  document.getElementById('freeNote').textContent=sub>=FREE_MIN?'You qualify for free delivery':`Add ৳${(FREE_MIN-sub).toLocaleString()} more for free delivery`;
+
+  document.getElementById('cartItems').innerHTML=cart.map((item,i)=>`
+    <div class="cart-item">
+      <img class="ci-img" src="${item.img||''}" alt="${item.name}">
+      <div class="ci-body">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-meta">${item.size?'Size '+item.size:''}${item.color?' · '+item.color:''}</div>
+        <div class="ci-row">
+          <div class="qty-ctrl"><button class="qty-btn" onclick="chQty(${i},-1)">−</button><div class="qty-num">${item.qty}</div><button class="qty-btn" onclick="chQty(${i},1)">+</button></div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <span class="ci-price">৳${(item.price*item.qty).toLocaleString()}</span>
+            <button class="ci-remove" onclick="rmItem(${i})">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function chQty(i,d){const c=gc();c[i].qty=Math.max(1,c[i].qty+d);sc(c);renderCart()}
+function rmItem(i){const c=gc();c.splice(i,1);sc(c);renderCart();showToast('Item removed')}
+
+function validate(){
+  let ok=true;
+  const fields=[
+    {id:'fName',err:'errName',check:v=>v.trim().length>=2},
+    {id:'fPhone',err:'errPhone',check:v=>/^(?:\+?88)?01[3-9]\d{8}$/.test(v.trim().replace(/\s/g,''))},
+    {id:'fAddress',err:'errAddress',check:v=>v.trim().length>=10},
+    {id:'fCity',err:'errCity',check:v=>v.trim().length>=2},
+  ];
+  fields.forEach(f=>{
+    const el=document.getElementById(f.id),e=document.getElementById(f.err);
+    const v=f.check(el.value);
+    el.classList.toggle('err',!v);
+    e.classList.toggle('show',!v);
+    if(!v)ok=false;
+  });
+  return ok;
+}
+
+function placeOrder(){
+  if(!validate())return;
+  const cart=gc();
+  if(!cart.length){showToast('Your bag is empty');return}
+  const btn=document.getElementById('placeBtn');
+  btn.disabled=true;btn.textContent='Placing order…';
+
+  const orderId='LRZ-'+Date.now();
+  lastOrderId=orderId;
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const del=sub>=FREE_MIN?0:DELIVERY_FEE;
+  const total=sub+del;
+
+  // NOTE: connect this to your Google Apps Script endpoint to store orders + send email
+  const orderData={
+    action:'placeOrder', orderId,
+    name:document.getElementById('fName').value.trim(),
+    phone:document.getElementById('fPhone').value.trim(),
+    address:document.getElementById('fAddress').value.trim(),
+    city:document.getElementById('fCity').value.trim(),
+    notes:document.getElementById('fNotes').value.trim(),
+    items:cart.map(i=>`${i.name}${i.size?' (Size '+i.size+')':''}${i.color?' - '+i.color:''} x${i.qty}`).join(', '),
+    total:'৳'+total.toLocaleString(),
+    paymentMethod:'COD',
+    date:new Date().toLocaleDateString('en-GB'),
+    status:'Processing'
+  };
+
+  // Simulate network call — replace API below with your Apps Script URL when ready
+  setTimeout(()=>{
+    sc([]);
+    document.getElementById('cartPage').style.display='none';
+    document.getElementById('successWrap').classList.add('show');
+    document.getElementById('successId').textContent=orderId;
+    document.getElementById('trackBtn').href='track.html?id='+encodeURIComponent(orderId);
+    window.scrollTo({top:0,behavior:'smooth'});
+  },700);
+}
+
+function copyOrderId(){
+  const id=document.getElementById('successId').textContent;
+  if(!id||id==='—')return;
+  navigator.clipboard?.writeText(id).then(()=>showToast('Order ID copied')).catch(()=>{});
+}
+
+renderCart();
+</script>
+</body>
+</html>
