@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — LORENZIO</title>
+<meta name="description" content="Shop premium imported footwear at LORENZIO. Cash on Delivery, 7-day exchange.">
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="LORENZIO">
+<meta property="og:title" content="LORENZIO — Premium Footwear">
+<meta property="og:image" content="https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=1200&q=80">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json" id="productSchema">{}</script>
+<link rel="icon" type="image/png" href="logo-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F4EE; --surface:#FCFAF7; --secondary:#E7DCCB; --accent:#8A6A4A;
+  --accent-d:#725639; --text:#2B2B2B; --dark:#23201D; --success:#6E8B63;
+  --error:#B65B5B; --border:#DDD5C8;
+  --display:'Cormorant Garamond',serif; --body:'Manrope',sans-serif;
+  --nh:76px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--body);cursor:pointer;border:none;background:none}
+h1,h2,h3{font-family:var(--display);font-weight:500;letter-spacing:-.01em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* NAVBAR (solid always on this page) */
+.navbar{position:sticky;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:var(--nh);background:rgba(252,250,247,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--border)}
+.nav-logo{display:flex;align-items:center;height:38px;width:150px}
+.nav-logo img{height:36px;width:auto}
+.nav-center{display:flex;align-items:center;gap:36px}
+@media(max-width:980px){.nav-center{display:none}}
+.nav-link{position:relative;font-size:.86rem;font-weight:500;letter-spacing:.02em;color:var(--dark);padding:6px 0}
+.nav-link::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:currentColor;transition:width .3s cubic-bezier(.4,0,.2,1)}
+.nav-link:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:6px}
+.nav-ic{padding:9px;border-radius:50%;display:flex;color:var(--dark);position:relative;transition:background .2s}
+.nav-ic:hover{background:var(--secondary)}
+.cart-count{position:absolute;top:2px;right:2px;background:var(--accent);color:#fff;font-size:.55rem;font-weight:700;width:15px;height:15px;border-radius:50%;display:none;align-items:center;justify-content:center}
+.menu-btn{display:none;padding:9px;color:var(--dark)}
+@media(max-width:980px){.menu-btn{display:flex}}
+
+.mmenu-overlay{position:fixed;inset:0;background:rgba(35,32,29,.5);z-index:600;display:none;opacity:0;transition:opacity .3s}
+.mmenu-overlay.open{display:block;opacity:1}
+.mmenu{position:fixed;top:0;right:-320px;width:300px;height:100%;background:var(--surface);z-index:601;transition:right .4s cubic-bezier(.4,0,.2,1);padding:28px 24px;display:flex;flex-direction:column;gap:4px}
+.mmenu.open{right:0}
+.mmenu-close{align-self:flex-end;padding:8px;margin-bottom:20px}
+.mmenu a{font-family:var(--display);font-size:1.35rem;padding:14px 4px;border-bottom:1px solid var(--border);color:var(--dark)}
+
+/* BREADCRUMB */
+.bc{max-width:1320px;margin:0 auto;padding:20px 32px 0;font-size:.8rem;color:var(--text);opacity:.6;display:flex;gap:8px;flex-wrap:wrap}
+.bc a{opacity:1;transition:color .2s}
+.bc a:hover{color:var(--accent)}
+.bc-sep{opacity:.5}
+
+/* PRODUCT LAYOUT */
+.prod-wrap{max-width:1320px;margin:0 auto;padding:24px 32px 80px;display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:flex-start}
+@media(max-width:900px){.prod-wrap{grid-template-columns:1fr;gap:28px;padding:16px 20px 60px}}
+
+/* GALLERY */
+.gallery{position:sticky;top:calc(var(--nh) + 20px);display:grid;grid-template-columns:76px 1fr;gap:14px}
+@media(max-width:900px){.gallery{position:static;grid-template-columns:1fr}}
+.gal-thumbs{display:flex;flex-direction:column;gap:10px}
+@media(max-width:900px){.gal-thumbs{flex-direction:row;overflow-x:auto;order:2;scrollbar-width:none}.gal-thumbs::-webkit-scrollbar{display:none}}
+.thumb{width:76px;height:96px;flex-shrink:0;border-radius:4px;overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:.65;transition:all .25s}
+.thumb.on{border-color:var(--accent);opacity:1}
+.thumb:hover{opacity:1}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.gal-main{aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--secondary);position:relative;cursor:zoom-in}
+.gal-main img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
+.gal-main:hover img{transform:scale(1.08)}
+.gal-badges{position:absolute;top:16px;left:16px;display:flex;flex-direction:column;gap:8px;z-index:2}
+.gal-badge{background:var(--dark);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 13px;border-radius:2px}
+.gal-badge.sale{background:var(--error)}
+.gal-zoom-hint{position:absolute;bottom:16px;right:16px;background:rgba(252,250,247,.92);backdrop-filter:blur(6px);padding:7px 14px;border-radius:20px;font-size:.72rem;font-weight:600;color:var(--dark);display:flex;align-items:center;gap:6px;z-index:2}
+
+/* PRODUCT INFO / STICKY PURCHASE PANEL */
+.pinfo{padding-top:4px}
+.p-cat{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:10px}
+.p-name{font-size:clamp(1.9rem,3.4vw,2.5rem);color:var(--dark);line-height:1.12;margin-bottom:12px}
+.p-rating-row{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.p-stars{color:var(--accent);font-size:.95rem;letter-spacing:2px}
+.p-rating-text{font-size:.83rem;color:var(--text);opacity:.65}
+.p-rating-text a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+
+.p-price-row{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.p-price{font-family:var(--display);font-size:2.1rem;font-weight:600;color:var(--dark)}
+.p-price-og{font-size:1.15rem;color:var(--text);opacity:.4;text-decoration:line-through}
+.p-save{display:inline-block;background:var(--secondary);color:var(--accent-d);font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:20px;margin-bottom:24px}
+
+.p-divider{height:1px;background:var(--border);margin:24px 0}
+
+/* COLOR SELECTOR */
+.opt-block{margin-bottom:26px}
+.opt-label{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dark);margin-bottom:14px}
+.opt-label .val{color:var(--accent);text-transform:none;letter-spacing:0;font-weight:600}
+.opt-label button{font-size:.76rem;color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px;text-transform:none;letter-spacing:0}
+.color-row{display:flex;gap:12px}
+.color-sw{width:38px;height:38px;border-radius:50%;cursor:pointer;position:relative;border:2px solid transparent;transition:all .2s}
+.color-sw.on{border-color:var(--dark);box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--dark)}
+.color-sw::after{content:'';position:absolute;inset:3px;border-radius:50%;border:1px solid rgba(0,0,0,.08)}
+
+/* SIZE SELECTOR */
+.sizes-row{display:flex;flex-wrap:wrap;gap:10px}
+.sz{min-width:52px;height:52px;padding:0 14px;border:1.5px solid var(--border);border-radius:3px;font-size:.88rem;font-weight:600;color:var(--dark);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;background:var(--surface)}
+.sz:hover{border-color:var(--accent)}
+.sz.on{background:var(--dark);border-color:var(--dark);color:#fff}
+.sz.oos{opacity:.3;text-decoration:line-through;cursor:not-allowed;pointer-events:none}
+.size-err{font-size:.78rem;color:var(--error);margin-top:10px;display:none}
+
+/* DELIVERY + STOCK */
+.info-strip{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+.info-row{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text)}
+.info-row svg{color:var(--accent);flex-shrink:0}
+.stock-pill{display:inline-flex;align-items:center;gap:7px;font-size:.82rem;font-weight:600;padding:8px 14px;border-radius:3px;background:var(--secondary);color:var(--accent-d)}
+.stock-pill.low{background:#F5E4E4;color:var(--error)}
+.stock-dot{width:7px;height:7px;border-radius:50%;background:var(--success)}
+.stock-pill.low .stock-dot{background:var(--error)}
+
+/* QTY */
+.qty-row{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.qty-ctrl{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:3px}
+.qty-btn{width:42px;height:44px;font-size:1.1rem;color:var(--dark);display:flex;align-items:center;justify-content:center}
+.qty-btn:hover{background:var(--secondary)}
+.qty-num{width:42px;text-align:center;font-weight:700;font-size:.9rem;border-left:1.5px solid var(--border);border-right:1.5px solid var(--border);height:44px;display:flex;align-items:center;justify-content:center}
+
+/* CTA */
+.cta-row{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.btn-add-cart{width:100%;padding:17px;background:var(--dark);color:#fff;border-radius:3px;font-weight:600;font-size:.92rem;letter-spacing:.03em;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .3s,transform .15s}
+.btn-add-cart:hover{background:var(--accent-d)}
+.btn-add-cart:active{transform:scale(.98)}
+.btn-add-cart:disabled{background:#ccc;cursor:not-allowed}
+.btn-buy-now{width:100%;padding:17px;background:transparent;color:var(--dark);border:1.5px solid var(--dark);border-radius:3px;font-weight:600;font-size:.92rem;letter-spacing:.03em;transition:all .3s}
+.btn-buy-now:hover{background:var(--dark);color:#fff}
+
+/* TRUST BADGES */
+.trust-mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.trust-mini-item{display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--text);padding:11px 12px;background:var(--surface);border:1px solid var(--border);border-radius:4px}
+.trust-mini-item svg{color:var(--accent);flex-shrink:0}
+
+/* TABS */
+.tabs-section{max-width:1320px;margin:0 auto;padding:40px 32px 0}
+@media(max-width:900px){.tabs-section{padding:24px 20px 0}}
+.tabs-nav{display:flex;gap:36px;border-bottom:1px solid var(--border);margin-bottom:36px;overflow-x:auto}
+.tab-btn{padding:14px 0;font-size:.86rem;font-weight:600;color:var(--text);opacity:.5;position:relative;white-space:nowrap;letter-spacing:.02em}
+.tab-btn.on{opacity:1;color:var(--dark)}
+.tab-btn.on::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--dark)}
+.tab-panel{display:none;max-width:780px}
+.tab-panel.on{display:block;animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.tab-panel p{font-size:.98rem;color:var(--text);line-height:1.85;margin-bottom:16px;opacity:.85}
+.spec-table{width:100%;border-collapse:collapse}
+.spec-table tr{border-bottom:1px solid var(--border)}
+.spec-table td{padding:14px 0;font-size:.88rem}
+.spec-table td:first-child{color:var(--text);opacity:.6;width:180px}
+.spec-table td:last-child{color:var(--dark);font-weight:600}
+
+/* REVIEWS TAB */
+.review-summary{display:flex;align-items:center;gap:28px;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.review-big-num{font-family:var(--display);font-size:3.2rem;color:var(--dark);line-height:1}
+.review-big-stars{color:var(--accent);font-size:1rem;letter-spacing:2px;margin:6px 0}
+.review-big-count{font-size:.8rem;color:var(--text);opacity:.6}
+.rlist-item{padding:22px 0;border-bottom:1px solid var(--border)}
+.rlist-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.rlist-name{font-weight:700;font-size:.88rem;color:var(--dark)}
+.rlist-stars{color:var(--accent);font-size:.8rem;letter-spacing:1px;margin-bottom:8px}
+.rlist-text{font-size:.9rem;color:var(--text);opacity:.8;line-height:1.7}
+.rlist-date{font-size:.74rem;color:var(--text);opacity:.45}
+
+/* CUSTOMER GALLERY IN TAB */
+.cgallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+@media(max-width:600px){.cgallery{grid-template-columns:repeat(3,1fr)}}
+.cgallery img{aspect-ratio:1/1;object-fit:cover;border-radius:4px;cursor:pointer;transition:opacity .2s}
+.cgallery img:hover{opacity:.85}
+
+/* RELATED / RECENTLY VIEWED */
+.section-plain{max-width:1320px;margin:0 auto;padding:64px 32px}
+@media(max-width:900px){.section-plain{padding:44px 20px}}
+.section-plain h2{font-size:clamp(1.6rem,3.4vw,2.1rem);color:var(--dark);margin-bottom:8px}
+.section-plain .sub{font-size:.86rem;color:var(--text);opacity:.6;margin-bottom:32px}
+.hscroll{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.hscroll::-webkit-scrollbar{display:none}
+.pcard{flex:0 0 240px;cursor:pointer}
+.pcard-img-wrap{position:relative;aspect-ratio:3/4;border-radius:6px;overflow:hidden;background:var(--secondary);margin-bottom:14px;transition:transform .4s,box-shadow .4s}
+.pcard:hover .pcard-img-wrap{transform:translateY(-5px);box-shadow:0 18px 36px -14px rgba(35,32,29,.26)}
+.pcard-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.pcard:hover .pcard-img-wrap img{transform:scale(1.06)}
+.pcard-cat{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px}
+.pcard-name{font-family:var(--display);font-size:1.08rem;color:var(--dark);margin-bottom:6px}
+.pcard-price{font-size:.9rem;font-weight:700;color:var(--dark)}
+
+/* MODAL: SIZE GUIDE */
+.modal-overlay{position:fixed;inset:0;background:rgba(35,32,29,.55);z-index:800;display:none;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .3s}
+.modal-overlay.open{display:flex;opacity:1}
+.modal-box{background:var(--surface);border-radius:8px;max-width:480px;width:100%;max-height:86vh;overflow-y:auto;padding:32px;transform:scale(.94);transition:transform .3s}
+.modal-overlay.open .modal-box{transform:scale(1)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-head h3{font-size:1.4rem;color:var(--dark)}
+.modal-close{padding:6px;color:var(--dark)}
+.size-guide-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.size-guide-table th{text-align:left;padding:10px 8px;background:var(--secondary);color:var(--dark);font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.05em}
+.size-guide-table td{padding:10px 8px;border-bottom:1px solid var(--border);color:var(--text)}
+.size-guide-note{margin-top:18px;font-size:.82rem;color:var(--text);opacity:.65;line-height:1.6}
+
+/* FOOTER (same as index) */
+.footer{background:var(--dark);color:rgba(255,255,255,.65);padding:72px 32px 28px}
+.footer-inner{max-width:1320px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:48px;margin-bottom:56px}
+@media(max-width:860px){.footer-top{grid-template-columns:1fr 1fr;gap:32px 24px}}
+.footer-logo-img{height:52px;width:auto;margin-bottom:20px}
+.footer-tag{font-size:.88rem;line-height:1.7;max-width:280px;margin-bottom:20px}
+.footer-social{display:flex;gap:12px}
+.footer-social a{width:36px;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .25s}
+.footer-social a:hover{background:var(--accent);border-color:var(--accent)}
+.footer-col h4{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:18px;font-weight:700}
+.footer-col a{display:block;font-size:.86rem;margin-bottom:12px;transition:color .2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.78rem}
+
+/* CART DRAWER */
+.cart-overlay{position:fixed;inset:0;background:rgba(35,32,29,.5);z-index:700;display:none;opacity:0;transition:opacity .35s}
+.cart-overlay.open{display:block;opacity:1}
+.cart-drawer{position:fixed;top:0;right:-440px;width:420px;max-width:92vw;height:100%;background:var(--surface);z-index:701;transition:right .45s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column}
+.cart-drawer.open{right:0}
+.cd-head{display:flex;align-items:center;justify-content:space-between;padding:24px 26px;border-bottom:1px solid var(--border)}
+.cd-title{font-family:var(--display);font-size:1.35rem;color:var(--dark)}
+.cd-close{padding:8px;color:var(--dark)}
+.cd-body{flex:1;overflow-y:auto;padding:20px 26px}
+.cd-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border)}
+.cd-item img{width:76px;height:96px;object-fit:cover;border-radius:4px;background:var(--secondary)}
+.cd-item-name{font-family:var(--display);font-size:1.02rem;color:var(--dark);margin-bottom:4px}
+.cd-item-meta{font-size:.76rem;color:var(--text);opacity:.6;margin-bottom:10px}
+.cd-qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:3px;width:fit-content}
+.cd-qty button{width:26px;height:26px;font-size:.9rem;color:var(--dark)}
+.cd-qty span{width:26px;text-align:center;font-size:.82rem;font-weight:600}
+.cd-item-price{font-size:.9rem;font-weight:700;color:var(--dark);margin-left:auto;white-space:nowrap}
+.cd-remove{color:var(--error);font-size:.72rem;margin-top:8px;font-weight:600;cursor:pointer}
+.cd-empty{text-align:center;padding:60px 20px;color:var(--text);opacity:.6}
+.cd-foot{padding:22px 26px;border-top:1px solid var(--border)}
+.cd-subtotal{display:flex;justify-content:space-between;font-size:.95rem;margin-bottom:16px}
+.cd-subtotal strong{color:var(--dark);font-size:1.1rem}
+.cd-checkout-btn{width:100%;padding:16px;background:var(--dark);color:#fff;border-radius:2px;font-weight:600;font-size:.88rem;letter-spacing:.03em;text-align:center;display:block;transition:background .3s}
+.cd-checkout-btn:hover{background:var(--accent-d)}
+
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--dark);color:#fff;padding:13px 26px;border-radius:2px;font-size:.85rem;font-weight:500;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap;letter-spacing:.02em}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo" aria-label="LORENZIO Home"><img src="logo-full.png" alt="LORENZIO"></a>
+  <div class="nav-center">
+    <a href="index.html#shop" class="nav-link">Shop</a>
+    <a href="index.html#collection" class="nav-link">Collections</a>
+    <a href="index.html#shop" class="nav-link">New Arrivals</a>
+    <a href="index.html#story" class="nav-link">About</a>
+    <a href="track.html" class="nav-link">Track Order</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-ic" aria-label="Search" onclick="showToast('Search coming soon')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button class="nav-ic" id="wishNavBtn" aria-label="Wishlist" onclick="showToast('Wishlist saved for later')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <button class="nav-ic" aria-label="Cart" onclick="openCart()">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="menu-btn" aria-label="Menu" onclick="openMenu()">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="mmenu-overlay" id="mmenuOverlay" onclick="closeMenu()"></div>
+<div class="mmenu" id="mmenu">
+  <button class="mmenu-close" onclick="closeMenu()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="index.html#shop">Shop</a>
+  <a href="index.html#collection">Collections</a>
+  <a href="index.html#shop">New Arrivals</a>
+  <a href="index.html#story">About</a>
+  <a href="track.html">Track Order</a>
+</div>
+
+<div class="bc" id="bcRow"></div>
+
+<div class="prod-wrap" id="prodWrap">
+  <div style="grid-column:1/-1;text-align:center;padding:100px 0;color:var(--text);opacity:.5;font-family:var(--display);font-size:1.3rem" id="loadingMsg">Loading product…</div>
+</div>
+
+<div id="tabsSection"></div>
+<div id="recentlyViewedSection"></div>
+<div id="relatedSection"></div>
+
+<!-- SIZE GUIDE MODAL -->
+<div class="modal-overlay" id="sizeGuideModal" onclick="if(event.target===this)closeSizeGuide()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Size Guide</h3>
+      <button class="modal-close" onclick="closeSizeGuide()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <table class="size-guide-table">
+      <tr><th>UK</th><th>EU</th><th>US</th><th>Foot Length</th></tr>
+      <tr><td>6</td><td>40</td><td>7</td><td>25.0 cm</td></tr>
+      <tr><td>7</td><td>41</td><td>8</td><td>25.7 cm</td></tr>
+      <tr><td>8</td><td>42</td><td>9</td><td>26.4 cm</td></tr>
+      <tr><td>9</td><td>43</td><td>10</td><td>27.1 cm</td></tr>
+      <tr><td>10</td><td>44</td><td>11</td><td>27.8 cm</td></tr>
+      <tr><td>11</td><td>45</td><td>12</td><td>28.5 cm</td></tr>
+    </table>
+    <p class="size-guide-note">Measure your foot length in the evening for the most accurate result. Between sizes? We recommend sizing up. Free exchange within 7 days if the fit isn't right.</p>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <img src="logo-full-white.png" alt="LORENZIO" class="footer-logo-img">
+        <p class="footer-tag">Premium imported footwear crafted for everyday elegance. Designed to be worn, not just admired.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Shop</h4><a href="index.html#shop">All Products</a><a href="index.html#shop">New Arrivals</a><a href="index.html#collection">Collections</a><a href="track.html">Track Order</a></div>
+      <div class="footer-col"><h4>About</h4><a href="index.html#story">Our Story</a><a href="index.html#craft">Craftsmanship</a><a href="#">Sustainability</a></div>
+      <div class="footer-col"><h4>Support</h4><a href="#" onclick="openSizeGuide();return false">Size Guide</a><a href="#">Shipping & Exchange</a><a href="#">Contact Us</a><a href="#">WhatsApp Support</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 LORENZIO. All rights reserved.</span><span>Crafted with quiet confidence in Bangladesh.</span></div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cd-head"><span class="cd-title">Your Bag</span><button class="cd-close" onclick="closeCart()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+  <div class="cd-body" id="cdBody"></div>
+  <div class="cd-foot" id="cdFoot" style="display:none">
+    <div class="cd-subtotal"><span>Subtotal</span><strong id="cdSubtotal">৳0</strong></div>
+    <a href="cart.html" class="cd-checkout-btn">Proceed to Checkout</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const pid = new URLSearchParams(location.search).get('id') || '1';
+
+const PRODUCTS=[
+  {id:1,name:'The Oxford Loafer',cat:'Loafers',price:6900,og:8500,rating:4.9,reviews:128,badge:'New',stock:4,
+   colors:[{name:'Cognac',hex:'#8A6A4A'},{name:'Espresso',hex:'#4A3628'},{name:'Black',hex:'#23201D'}],
+   sizes:['7','8','9','10','11'],oosSizes:['7'],
+   images:['https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=900&q=80'],
+   story:'The Oxford Loafer is where tradition meets ease. Hand-lasted in full-grain leather and finished with a hand-burnished patina, it carries the quiet confidence of a shoe built to be worn daily — not saved for occasions.',
+   specs:[['Material','Full-grain leather, imported'],['Sole','Stitched rubber, non-slip'],['Lining','Breathable cotton twill'],['Insole','Memory-foam cushioning'],['Origin','Imported, hand-finished locally'],['Care','Wipe clean, condition monthly']]},
+  {id:2,name:'Heritage Derby',cat:'Formal',price:7400,og:null,rating:4.8,reviews:96,badge:null,stock:null,
+   colors:[{name:'Espresso',hex:'#4A3628'},{name:'Black',hex:'#23201D'}],
+   sizes:['7','8','9','10','11','12'],oosSizes:[],
+   images:['https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=900&q=80'],
+   story:'A formal silhouette redrawn for daily wear. The Heritage Derby balances structure with a softened toe box, so the polish never comes at the cost of comfort.',
+   specs:[['Material','Full-grain leather'],['Sole','Leather sole, rubber heel'],['Lining','Soft calfskin'],['Insole','Cushioned leather'],['Origin','Imported'],['Care','Polish weekly for best shine']]},
+  {id:3,name:'The Weekend Sneaker',cat:'Sneakers',price:5900,og:7200,rating:4.9,reviews:210,badge:'Sale',stock:null,
+   colors:[{name:'Cream',hex:'#F8F4EE'},{name:'Cognac',hex:'#8A6A4A'}],
+   sizes:['6','7','8','9','10','11'],oosSizes:['6'],
+   images:['https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1600269452121-4f2416e55c28?auto=format&fit=crop&w=900&q=80'],
+   story:'Minimalist by design, durable by construction. The Weekend Sneaker pairs a soft leather upper with a lightweight sole built for long days on your feet.',
+   specs:[['Material','Leather + suede overlay'],['Sole','Lightweight EVA'],['Lining','Mesh, breathable'],['Insole','Removable, washable'],['Origin','Imported'],['Care','Spot clean with a damp cloth']]},
+  {id:4,name:'Suede Chelsea Boot',cat:'Boots',price:8900,og:null,rating:5.0,reviews:64,badge:'New',stock:3,
+   colors:[{name:'Taupe',hex:'#BFA98C'},{name:'Espresso',hex:'#4A3628'}],
+   sizes:['7','8','9','10','11'],oosSizes:[],
+   images:['https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=900&q=80'],
+   story:'An elastic-sided boot that slips on in one motion and holds its shape for years. Brushed suede over a stacked leather heel — quietly the most versatile pair you\'ll own.',
+   specs:[['Material','Brushed suede'],['Sole','Stacked leather, rubber grip'],['Lining','Soft textile'],['Insole','Cushioned foam'],['Origin','Imported'],['Care','Use a suede brush weekly']]},
+];
+
+function getProduct(id){return PRODUCTS.find(p=>String(p.id)===String(id)) || PRODUCTS[0]}
+const product = getProduct(pid);
+let curImg=0, curColor=0, curSize=null, qty=1;
+
+/* BREADCRUMB */
+document.getElementById('bcRow').innerHTML = `<a href="index.html">Home</a><span class="bc-sep">/</span><a href="index.html#shop">${product.cat}</a><span class="bc-sep">/</span><span style="opacity:.85">${product.name}</span>`;
+
+/* RENDER PRODUCT */
+function starsHTML(rating){return '★'.repeat(Math.round(rating))+'☆'.repeat(5-Math.round(rating))}
+
+function renderProduct(){
+  const p=product;
+  const discPct = p.og ? Math.round((1-p.price/p.og)*100) : 0;
+  document.getElementById('prodWrap').innerHTML = `
+    <div class="gallery">
+      <div class="gal-thumbs" id="galThumbs">
+        ${p.images.map((img,i)=>`<div class="thumb${i===0?' on':''}" onclick="switchImg(${i})"><img src="${img}" alt="${p.name} view ${i+1}"></div>`).join('')}
+      </div>
+      <div class="gal-main">
+        <div class="gal-badges">
+          ${p.badge?`<span class="gal-badge${p.badge==='Sale'?' sale':''}">${p.badge}</span>`:''}
+        </div>
+        <img id="galMainImg" src="${p.images[0]}" alt="${p.name}">
+        <span class="gal-zoom-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Hover to zoom</span>
+      </div>
+    </div>
+    <div class="pinfo">
+      <p class="p-cat">${p.cat}</p>
+      <h1 class="p-name">${p.name}</h1>
+      <div class="p-rating-row">
+        <span class="p-stars">${starsHTML(p.rating)}</span>
+        <span class="p-rating-text">${p.rating} <a href="#reviews-tab" onclick="switchTab('reviews')">(${p.reviews} reviews)</a></span>
+      </div>
+      <div class="p-price-row">
+        <span class="p-price">৳${p.price.toLocaleString()}</span>
+        ${p.og?`<span class="p-price-og">৳${p.og.toLocaleString()}</span>`:''}
+      </div>
+      ${discPct>0?`<span class="p-save">Save ${discPct}% today</span>`:'<div style="margin-bottom:24px"></div>'}
+
+      <div class="p-divider"></div>
+
+      <div class="opt-block">
+        <div class="opt-label">Color <span class="val" id="colorVal">${p.colors[0].name}</span></div>
+        <div class="color-row" id="colorRow">
+          ${p.colors.map((c,i)=>`<div class="color-sw${i===0?' on':''}" style="background:${c.hex}" onclick="selectColor(${i})" title="${c.name}"></div>`).join('')}
+        </div>
+      </div>
+
+      <div class="opt-block">
+        <div class="opt-label">Select Size <button onclick="openSizeGuide()">Size Guide ↗</button></div>
+        <div class="sizes-row" id="sizesRow">
+          ${p.sizes.map(s=>`<div class="sz${p.oosSizes.includes(s)?' oos':''}" onclick="selectSize('${s}',this)">${s}</div>`).join('')}
+        </div>
+        <div class="size-err" id="sizeErr">Please select a size to continue</div>
+      </div>
+
+      <div class="info-strip">
+        <div class="info-row">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <span>Estimated delivery: 2–4 business days</span>
+        </div>
+        ${p.stock ? `<div class="stock-pill low"><span class="stock-dot"></span>Only ${p.stock} left in stock</div>` : `<div class="stock-pill"><span class="stock-dot"></span>In stock — ready to ship</div>`}
+      </div>
+
+      <div class="qty-row">
+        <span style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dark)">Qty</span>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <div class="qty-num" id="qtyNum">1</div>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn-add-cart" onclick="addToCart(false)">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Add to Bag
+        </button>
+        <button class="btn-buy-now" onclick="addToCart(true)">Buy Now</button>
+      </div>
+
+      <div class="trust-mini">
+        <div class="trust-mini-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="20" height="13" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Cash on Delivery</div>
+        <div class="trust-mini-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>7-Day Exchange</div>
+        <div class="trust-mini-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>Premium Quality</div>
+        <div class="trust-mini-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6L9 17l-5-5"/></svg>Authentic, Imported</div>
+      </div>
+    </div>
+  `;
+  renderTabs();
+  renderRecentlyViewed();
+  renderRelated();
+  addRecentlyViewed(p.id);
+  updateSEO(p);
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}
+
+function updateSEO(p){
+  document.title = p.name + ' — LORENZIO';
+  const schema = {
+    "@context":"https://schema.org","@type":"Product",
+    "name":p.name,"image":p.images,"description":p.story,
+    "brand":{"@type":"Brand","name":"LORENZIO"},
+    "offers":{"@type":"Offer","priceCurrency":"BDT","price":p.price,
+      "availability": (p.stock===0? "https://schema.org/OutOfStock":"https://schema.org/InStock")}
+  };
+  const el=document.getElementById('productSchema');
+  if(el)el.textContent=JSON.stringify(schema);
+}
+
+function switchImg(i){
+  curImg=i;
+  document.getElementById('galMainImg').src=product.images[i];
+  document.querySelectorAll('.thumb').forEach((t,idx)=>t.classList.toggle('on',idx===i));
+}
+function selectColor(i){
+  curColor=i;
+  document.getElementById('colorVal').textContent=product.colors[i].name;
+  document.querySelectorAll('.color-sw').forEach((c,idx)=>c.classList.toggle('on',idx===i));
+}
+function selectSize(s,el){
+  if(el.classList.contains('oos'))return;
+  curSize=s;
+  document.querySelectorAll('.sz').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('sizeErr').style.display='none';
+}
+function changeQty(d){qty=Math.max(1,qty+d);document.getElementById('qtyNum').textContent=qty}
+
+function addToCart(buyNow){
+  if(!curSize){document.getElementById('sizeErr').style.display='block';return}
+  const cart=gc();
+  const ex=cart.find(i=>i.id===product.id&&i.size===curSize&&i.color===product.colors[curColor].name);
+  if(ex)ex.qty+=qty;
+  else cart.push({id:product.id,name:product.name,price:product.price,img:product.images[0],size:curSize,color:product.colors[curColor].name,qty});
+  sc(cart);updateCartCount();
+  if(buyNow){location.href='cart.html'}
+  else{showToast('Added to your bag');openCart()}
+}
+
+/* TABS */
+function renderTabs(){
+  const p=product;
+  document.getElementById('tabsSection').innerHTML=`
+  <div class="tabs-section">
+    <div class="tabs-nav">
+      <button class="tab-btn on" data-tab="story" onclick="switchTab('story')">The Story</button>
+      <button class="tab-btn" data-tab="specs" onclick="switchTab('specs')">Specifications</button>
+      <button class="tab-btn" data-tab="reviews" onclick="switchTab('reviews')">Reviews (${p.reviews})</button>
+      <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery')">Customer Gallery</button>
+    </div>
+    <div class="tab-panel on" id="tab-story"><p>${p.story}</p><p>Every LORENZIO pair ships with a dust bag, care card, and our 7-day exchange promise — because confidence should extend past checkout.</p></div>
+    <div class="tab-panel" id="tab-specs"><table class="spec-table">${p.specs.map(s=>`<tr><td>${s[0]}</td><td>${s[1]}</td></tr>`).join('')}</table></div>
+    <div class="tab-panel" id="tab-reviews">
+      <div class="review-summary">
+        <div><div class="review-big-num">${p.rating}</div><div class="review-big-stars">${starsHTML(p.rating)}</div><div class="review-big-count">${p.reviews} reviews</div></div>
+      </div>
+      <div class="rlist-item"><div class="rlist-head"><span class="rlist-name">Rafiq A.</span><span class="rlist-date">2 weeks ago</span></div><div class="rlist-stars">★★★★★</div><p class="rlist-text">The most comfortable pair I've owned — and they still look sharp after months of daily wear.</p></div>
+      <div class="rlist-item"><div class="rlist-head"><span class="rlist-name">Sanjida N.</span><span class="rlist-date">1 month ago</span></div><div class="rlist-stars">★★★★★</div><p class="rlist-text">Packaging alone felt premium. The leather has that quiet quality you can't fake.</p></div>
+      <div class="rlist-item"><div class="rlist-head"><span class="rlist-name">Tanvir H.</span><span class="rlist-date">1 month ago</span></div><div class="rlist-stars">★★★★☆</div><p class="rlist-text">Exchanged for a half size up in two days, no questions asked. Great service.</p></div>
+    </div>
+    <div class="tab-panel" id="tab-gallery">
+      <p style="margin-bottom:4px">Real photos from LORENZIO customers wearing this pair.</p>
+      <div class="cgallery">
+        <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=300&q=70" loading="lazy" alt="">
+        <img src="https://images.unsplash.com/photo-1465101162946-4377e57745c3?auto=format&fit=crop&w=300&q=70" loading="lazy" alt="">
+        <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=300&q=70" loading="lazy" alt="">
+        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=300&q=70" loading="lazy" alt="">
+      </div>
+    </div>
+  </div>`;
+}
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('on',p.id==='tab-'+tab));
+}
+
+/* RECENTLY VIEWED */
+function addRecentlyViewed(id){
+  let rv=JSON.parse(localStorage.getItem('lorenzio_recent')||'[]');
+  rv=rv.filter(x=>x!==id);
+  rv.unshift(id);
+  rv=rv.slice(0,6);
+  localStorage.setItem('lorenzio_recent',JSON.stringify(rv));
+}
+function pcardHTML(p){
+  return `<div class="pcard reveal" onclick="location.href='product.html?id=${p.id}'">
+    <div class="pcard-img-wrap"><img src="${p.images[0]}" alt="${p.name}" loading="lazy"></div>
+    <div class="pcard-cat">${p.cat}</div>
+    <div class="pcard-name">${p.name}</div>
+    <div class="pcard-price">৳${p.price.toLocaleString()}</div>
+  </div>`;
+}
+function renderRecentlyViewed(){
+  const rv=JSON.parse(localStorage.getItem('lorenzio_recent')||'[]').filter(id=>id!==product.id);
+  const sec=document.getElementById('recentlyViewedSection');
+  if(!rv.length){sec.innerHTML='';return}
+  const items=rv.map(id=>getProduct(id)).filter(Boolean).slice(0,4);
+  sec.innerHTML=`<div class="section-plain"><h2>Recently Viewed</h2><div class="hscroll">${items.map(pcardHTML).join('')}</div></div>`;
+}
+function renderRelated(){
+  const rel=PRODUCTS.filter(p=>p.id!==product.id && p.cat===product.cat);
+  const fallback=PRODUCTS.filter(p=>p.id!==product.id);
+  const list=(rel.length?rel:fallback).slice(0,4);
+  document.getElementById('relatedSection').innerHTML=`<div class="section-plain"><h2>You May Also Like</h2><p class="sub">Pairs that complement your style</p><div class="hscroll">${list.map(pcardHTML).join('')}</div></div>`;
+}
+
+/* SIZE GUIDE MODAL */
+function openSizeGuide(){document.getElementById('sizeGuideModal').classList.add('open')}
+function closeSizeGuide(){document.getElementById('sizeGuideModal').classList.remove('open')}
+
+/* NAV MENU */
+function openMenu(){document.getElementById('mmenu').classList.add('open');document.getElementById('mmenuOverlay').classList.add('open')}
+function closeMenu(){document.getElementById('mmenu').classList.remove('open');document.getElementById('mmenuOverlay').classList.remove('open')}
+
+/* CART */
+const gc=()=>{try{return JSON.parse(localStorage.getItem('lorenzio_cart')||'[]')}catch(e){return[]}};
+const sc=c=>localStorage.setItem('lorenzio_cart',JSON.stringify(c));
+function updateCartCount(){
+  const n=gc().reduce((s,i)=>s+i.qty,0);
+  const b=document.getElementById('cartCount');
+  b.textContent=n;b.style.display=n>0?'flex':'none';
+}
+function renderCartDrawer(){
+  const cart=gc();const body=document.getElementById('cdBody');const foot=document.getElementById('cdFoot');
+  if(!cart.length){body.innerHTML='<div class="cd-empty">Your bag is empty.<br><br><a href="index.html#shop" style="color:var(--accent);font-weight:600">Continue Shopping →</a></div>';foot.style.display='none';return}
+  foot.style.display='block';
+  body.innerHTML=cart.map((i,idx)=>`
+    <div class="cd-item"><img src="${i.img}" alt="${i.name}">
+      <div style="flex:1"><div class="cd-item-name">${i.name}</div><div class="cd-item-meta">${i.size?'Size '+i.size:''}${i.color?' · '+i.color:''}</div>
+        <div class="cd-qty"><button onclick="cdChangeQty(${idx},-1)">−</button><span>${i.qty}</span><button onclick="cdChangeQty(${idx},1)">+</button></div>
+        <div class="cd-remove" onclick="cdRemove(${idx})">Remove</div>
+      </div>
+      <div class="cd-item-price">৳${(i.price*i.qty).toLocaleString()}</div>
+    </div>`).join('');
+  document.getElementById('cdSubtotal').textContent='৳'+cart.reduce((s,i)=>s+i.price*i.qty,0).toLocaleString();
+}
+function cdChangeQty(idx,d){const c=gc();c[idx].qty=Math.max(1,c[idx].qty+d);sc(c);renderCartDrawer();updateCartCount()}
+function cdRemove(idx){const c=gc();c.splice(idx,1);sc(c);renderCartDrawer();updateCartCount()}
+function openCart(){renderCartDrawer();document.getElementById('cartDrawer').classList.add('open');document.getElementById('cartOverlay').classList.add('open')}
+function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('cartOverlay').classList.remove('open')}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closeMenu();closeSizeGuide()}});
+
+/* INIT */
+renderProduct();
+updateCartCount();
+</script>
+</body>
+</html>
