@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Your Order — LORENZIO</title>
+<link rel="icon" type="image/png" href="logo-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F4EE; --surface:#FCFAF7; --secondary:#E7DCCB; --accent:#8A6A4A;
+  --accent-d:#725639; --text:#2B2B2B; --dark:#23201D; --success:#6E8B63;
+  --error:#B65B5B; --border:#DDD5C8;
+  --display:'Cormorant Garamond',serif; --body:'Manrope',sans-serif; --nh:76px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+img{max-width:100%;display:block}a{text-decoration:none;color:inherit}
+button,input{font-family:var(--body);cursor:pointer;border:none;background:none}
+h1,h2,h3{font-family:var(--display);font-weight:500}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.navbar{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:var(--nh);background:rgba(252,250,247,.94);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--border)}
+.nav-logo img{height:36px;width:auto}
+.nav-back{display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;color:var(--dark);padding:9px 18px;border:1.5px solid var(--border);border-radius:2px;transition:all .2s}
+.nav-back:hover{border-color:var(--dark)}
+
+main{flex:1;max-width:680px;margin:0 auto;width:100%;padding:56px 24px 100px}
+@media(max-width:600px){main{padding:36px 20px 80px}}
+
+.trk-head{text-align:center;margin-bottom:40px}
+.trk-eyebrow{font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:14px}
+.trk-head h1{font-size:clamp(1.9rem,4.4vw,2.6rem);color:var(--dark);margin-bottom:12px}
+.trk-head p{color:var(--text);opacity:.65;font-size:.92rem}
+
+.srch-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:30px;margin-bottom:28px}
+.srch-label{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text);opacity:.65;margin-bottom:10px;display:block}
+.srch-row{display:flex;gap:10px}
+@media(max-width:480px){.srch-row{flex-direction:column}}
+.trk-inp{flex:1;padding:15px 18px;border:1.5px solid var(--border);border-radius:3px;font-size:.95rem;background:var(--bg);color:var(--dark);outline:none;transition:border-color .2s}
+.trk-inp:focus{border-color:var(--accent)}
+.trk-inp.err{border-color:var(--error)}
+.trk-btn{padding:15px 30px;background:var(--dark);color:#fff;border-radius:3px;font-weight:600;font-size:.88rem;letter-spacing:.03em;white-space:nowrap;transition:background .3s,transform .15s;display:flex;align-items:center;gap:8px;justify-content:center}
+.trk-btn:hover{background:var(--accent-d)}
+.trk-btn:active{transform:scale(.97)}
+.trk-btn:disabled{background:#ccc;cursor:not-allowed}
+.inp-hint{font-size:.76rem;color:var(--text);opacity:.55;margin-top:10px}
+.err-msg{display:none;margin-top:12px;padding:12px 16px;background:#F5E4E4;color:var(--error);border-radius:4px;font-size:.84rem}
+.err-msg.show{display:block}
+
+.result-card{display:none;background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;animation:slideUp .4s ease}
+.result-card.show{display:block}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+.res-head{padding:26px 30px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.res-oid-lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text);opacity:.55;margin-bottom:4px}
+.res-oid-val{font-family:var(--display);font-size:1.2rem;color:var(--dark);font-weight:600}
+.status-badge{padding:8px 18px;border-radius:20px;font-weight:700;font-size:.8rem;letter-spacing:.02em}
+.sb-Confirmed{background:#EFE7DA;color:var(--accent-d)}
+.sb-Packed{background:#E7DCCB;color:var(--accent-d)}
+.sb-Shipped{background:#E3EEE0;color:var(--success)}
+.sb-Out-for-Delivery{background:#E3EEE0;color:var(--success)}
+.sb-Delivered{background:#DCEEDA;color:#3F6B38}
+.sb-Cancelled{background:#F5E4E4;color:var(--error)}
+.sb-Processing{background:#EFE7DA;color:var(--accent-d)}
+
+/* TIMELINE - 5 steps per brief: Confirmed → Packed → Shipped → Out for Delivery → Delivered */
+.timeline-wrap{padding:36px 30px;border-bottom:1px solid var(--border)}
+.tl-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text);opacity:.55;margin-bottom:28px}
+.tl{position:relative;padding-left:46px}
+.tl::before{content:'';position:absolute;left:15px;top:6px;bottom:6px;width:2px;background:var(--border);z-index:0}
+.tl-fill{position:absolute;left:15px;top:6px;width:2px;background:var(--accent);z-index:1;height:0;transition:height .8s cubic-bezier(.16,1,.3,1)}
+.tl-step{position:relative;padding-bottom:30px}
+.tl-step:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-31px;top:0;width:32px;height:32px;border-radius:50%;border:2px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:.85rem;z-index:2;transition:all .4s}
+.tl-step.done .tl-dot{background:var(--accent);border-color:var(--accent);color:#fff}
+.tl-step.active .tl-dot{background:var(--accent);border-color:var(--accent);color:#fff;animation:pulseDot 1.6s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(138,106,74,.3)}50%{box-shadow:0 0 0 7px rgba(138,106,74,.12)}}
+.tl-step-title{font-size:.95rem;font-weight:700;color:var(--dark)}
+.tl-step.pending .tl-step-title{color:#bbb}
+.tl-step-desc{font-size:.8rem;color:var(--text);opacity:.6;margin:3px 0;line-height:1.5}
+.tl-step.pending .tl-step-desc{opacity:.3}
+.tl-step-time{font-size:.72rem;color:var(--accent);font-weight:600}
+
+.status-msg{margin:0 30px 26px;padding:16px 18px;border-radius:5px;font-size:.86rem;line-height:1.65;background:var(--bg);border-left:3px solid var(--accent)}
+.status-msg strong{display:block;color:var(--dark);margin-bottom:4px}
+
+.res-details{padding:26px 30px}
+.det-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text);opacity:.55;margin-bottom:16px}
+.det-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:420px){.det-grid{grid-template-columns:1fr}}
+.det-item{background:var(--bg);border-radius:4px;padding:14px 16px}
+.det-item.full{grid-column:1/-1}
+.det-item-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text);opacity:.5;margin-bottom:5px}
+.det-item-val{font-size:.9rem;font-weight:600;color:var(--dark);word-break:break-word}
+.det-item-val.highlight{color:var(--accent-d);font-size:1.05rem;font-weight:700}
+
+.res-actions{padding:20px 30px;border-top:1px solid var(--border);display:flex;gap:12px;flex-wrap:wrap}
+.act-btn{flex:1;min-width:140px;padding:13px;border-radius:3px;font-weight:600;font-size:.85rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s}
+.act-pri{background:var(--dark);color:#fff}
+.act-pri:hover{background:var(--accent-d)}
+.act-sec{border:1.5px solid var(--border);color:var(--dark)}
+.act-sec:hover{border-color:var(--dark)}
+
+.footer{background:var(--dark);color:rgba(255,255,255,.6);padding:32px 32px;text-align:center;font-size:.8rem}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--dark);color:#fff;padding:13px 26px;border-radius:2px;font-size:.85rem;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><img src="logo-full.png" alt="LORENZIO"></a>
+  <a href="index.html" class="nav-back">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Back to Shop
+  </a>
+</nav>
+
+<main>
+  <div class="trk-head">
+    <p class="trk-eyebrow">Order Status</p>
+    <h1>Track Your Order</h1>
+    <p>Enter your Order ID to follow your shipment's journey</p>
+  </div>
+
+  <div class="srch-card">
+    <label class="srch-label" for="trkInp">Order ID</label>
+    <div class="srch-row">
+      <input class="trk-inp" id="trkInp" type="text" placeholder="e.g. LRZ-1749812345678" autocomplete="off" spellcheck="false">
+      <button class="trk-btn" id="trkBtn" onclick="trackOrder()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Track
+      </button>
+    </div>
+    <p class="inp-hint">Your Order ID was shown on your confirmation page and starts with LRZ-</p>
+    <div class="err-msg" id="errMsg"></div>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="res-head">
+      <div><div class="res-oid-lbl">Order ID</div><div class="res-oid-val" id="rOrderId">—</div></div>
+      <div class="status-badge" id="statusBadge">—</div>
+    </div>
+
+    <div class="timeline-wrap">
+      <div class="tl-title">Delivery Progress</div>
+      <div class="tl" id="tlContainer">
+        <div class="tl-fill" id="tlFill"></div>
+        <div class="tl-step" id="step0"><div class="tl-dot" id="dot0">1</div>
+          <div><div class="tl-step-title">Confirmed</div><div class="tl-step-desc">Your order has been received and confirmed</div><div class="tl-step-time" id="time0"></div></div></div>
+        <div class="tl-step" id="step1"><div class="tl-dot" id="dot1">2</div>
+          <div><div class="tl-step-title">Packed</div><div class="tl-step-desc">Carefully packed and ready for dispatch</div><div class="tl-step-time" id="time1"></div></div></div>
+        <div class="tl-step" id="step2"><div class="tl-dot" id="dot2">3</div>
+          <div><div class="tl-step-title">Shipped</div><div class="tl-step-desc">On its way with our delivery partner</div><div class="tl-step-time" id="time2"></div></div></div>
+        <div class="tl-step" id="step3"><div class="tl-dot" id="dot3">4</div>
+          <div><div class="tl-step-title">Out for Delivery</div><div class="tl-step-desc">Arriving today — please keep your phone nearby</div><div class="tl-step-time" id="time3"></div></div></div>
+        <div class="tl-step" id="step4"><div class="tl-dot" id="dot4">✓</div>
+          <div><div class="tl-step-title">Delivered</div><div class="tl-step-desc">Order received — enjoy your LORENZIO pair</div><div class="tl-step-time" id="time4"></div></div></div>
+      </div>
+    </div>
+
+    <div class="status-msg" id="statusMsg"></div>
+
+    <div class="res-details">
+      <div class="det-title">Order Details</div>
+      <div class="det-grid" id="detGrid"></div>
+    </div>
+
+    <div class="res-actions">
+      <a href="index.html#shop" class="act-btn act-sec">Shop More</a>
+      <button class="act-btn act-pri" onclick="trackOrder()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Refresh Status
+      </button>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">© 2025 LORENZIO. Crafted with quiet confidence in Bangladesh.</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* Replace with your deployed Google Apps Script Web App URL */
+const API='REPLACE_WITH_YOUR_APPS_SCRIPT_URL';
+
+// 5-stage status map per brief: Confirmed(0) Packed(1) Shipped(2) Out for Delivery(3) Delivered(4)
+const STATUS_MAP={Processing:0,Confirmed:0,Packed:1,Shipped:2,'Out for Delivery':3,Delivered:4,Cancelled:0};
+const FILL_PCT={Processing:8,Confirmed:8,Packed:30,Shipped:55,'Out for Delivery':78,Delivered:100,Cancelled:8};
+const STEP_MSGS={
+  Processing:{t:'Your order is confirmed',d:'We\'re preparing your items with care. You\'ll be notified at each step.'},
+  Confirmed:{t:'Your order is confirmed',d:'We\'re preparing your items with care. You\'ll be notified at each step.'},
+  Packed:{t:'Your order is packed',d:'Your pair has been carefully packed and is awaiting dispatch.'},
+  Shipped:{t:'Your order is on its way',d:'Our delivery partner has picked up your package.'},
+  'Out for Delivery':{t:'Arriving today',d:'Your order is out for delivery. Please keep your phone reachable and cash ready.'},
+  Delivered:{t:'Delivered successfully',d:'We hope you love your new pair. For exchanges within 7 days, reach out anytime.'},
+  Cancelled:{t:'Order cancelled',d:'This order was cancelled. Contact support if you believe this is a mistake.'}
+};
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+
+function setTimeline(status,orderDate){
+  const activeIdx = STATUS_MAP[status] ?? 0;
+  const isCancelled = status==='Cancelled';
+  const isDelivered = status==='Delivered';
+
+  for(let i=0;i<=4;i++){
+    const step=document.getElementById('step'+i);
+    const dot=document.getElementById('dot'+i);
+    const timeEl=document.getElementById('time'+i);
+    step.className='tl-step';
+    dot.textContent=(i===4)?'✓':(i+1);
+
+    if(isDelivered || i<activeIdx){
+      step.classList.add('done');
+      dot.textContent='✓';
+      if(i===0 && orderDate) timeEl.textContent=orderDate; else timeEl.textContent='Completed';
+    } else if(i===activeIdx && !isCancelled){
+      step.classList.add(isDelivered?'done':'active');
+      timeEl.textContent='In progress…';
+    } else {
+      step.classList.add('pending');
+      timeEl.textContent='';
+    }
+  }
+  const pct = FILL_PCT[status] ?? 8;
+  setTimeout(()=>{
+    const h=document.getElementById('tlContainer').offsetHeight;
+    document.getElementById('tlFill').style.height = Math.round((pct/100)*(h-14))+'px';
+  },100);
+}
+
+function trackOrder(){
+  const inp=document.getElementById('trkInp');
+  const errEl=document.getElementById('errMsg');
+  const btn=document.getElementById('trkBtn');
+  const id=inp.value.trim();
+
+  errEl.classList.remove('show'); inp.classList.remove('err');
+  document.getElementById('resultCard').classList.remove('show');
+
+  if(!id){inp.classList.add('err');errEl.textContent='Please enter your Order ID.';errEl.classList.add('show');inp.focus();return}
+
+  if(API.includes('REPLACE_WITH')){
+    errEl.textContent='Tracking backend is not connected yet. Ask your developer to link the Google Apps Script URL.';
+    errEl.classList.add('show');
+    return;
+  }
+
+  btn.disabled=true; btn.textContent='Tracking…';
+
+  fetch(API+'?action=track&orderId='+encodeURIComponent(id))
+    .then(r=>r.json())
+    .then(data=>{
+      btn.disabled=false; btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Track';
+      if(data.error){
+        errEl.textContent = data.error==='Order not found' ? 'No order found with this ID. Please double-check and try again.' : data.error;
+        errEl.classList.add('show'); inp.classList.add('err');
+        return;
+      }
+      const status=data.status||'Processing';
+      document.getElementById('rOrderId').textContent=data.orderId||id;
+      const badge=document.getElementById('statusBadge');
+      badge.textContent=status; badge.className='status-badge sb-'+status.replace(/\s+/g,'-');
+      setTimeline(status,data.date||'');
+      const m=STEP_MSGS[status]||STEP_MSGS.Processing;
+      document.getElementById('statusMsg').innerHTML=`<strong>${m.t}</strong>${m.d}`;
+      const details=[
+        {label:'Customer',val:data.name||'—'},
+        {label:'Phone',val:data.phone||'—'},
+        {label:'Total',val:'<span class="highlight">'+(data.total||'—')+'</span>'},
+        {label:'Payment',val:data.paymentMethod||'COD'},
+        {label:'Order Date',val:data.date||'—'},
+        {label:'Status',val:status},
+        {label:'Items Ordered',val:data.items||'—',full:true},
+        {label:'Delivery Address',val:(data.address||'—')+(data.city?', '+data.city:''),full:true},
+      ];
+      document.getElementById('detGrid').innerHTML=details.map(d=>`<div class="det-item${d.full?' full':''}"><div class="det-item-label">${d.label}</div><div class="det-item-val">${d.val}</div></div>`).join('');
+      document.getElementById('resultCard').classList.add('show');
+      setTimeout(()=>document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'}),100);
+    })
+    .catch(()=>{
+      btn.disabled=false; btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Track';
+      errEl.textContent='Network error. Please check your connection and try again.';
+      errEl.classList.add('show');
+    });
+}
+
+document.getElementById('trkInp').addEventListener('keypress',e=>{if(e.key==='Enter')trackOrder()});
+const urlId=new URLSearchParams(location.search).get('id');
+if(urlId){document.getElementById('trkInp').value=urlId;trackOrder()}
+</script>
+</body>
+</html>
